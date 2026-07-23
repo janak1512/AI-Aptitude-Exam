@@ -629,6 +629,9 @@ body {
 
     .card {
         padding: 18px 14px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .card h2 {
@@ -639,6 +642,15 @@ body {
         max-width: 100%;
         white-space: normal;
         justify-content: center;
+    }
+
+    .header {
+        gap: 14px;
+    }
+
+    .header > div:first-child {
+        min-width: 0;
+        flex: 1 1 auto;
     }
 
     .category-top {
@@ -662,6 +674,8 @@ body {
         flex-direction: row;
         justify-content: center;
         gap: 8px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .btn-main {
@@ -681,6 +695,18 @@ body {
 
     .title {
         font-size: 20px;
+    }
+
+    .company-dash-cta {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .category {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 }
 

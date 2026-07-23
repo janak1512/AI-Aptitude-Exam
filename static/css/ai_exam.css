@@ -215,22 +215,45 @@ body {
     box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .exam-container {
-        margin: 20px auto 40px;
+        margin: 16px auto 36px;
         width: 94%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding-left: max(0px, env(safe-area-inset-left, 0px));
+        padding-right: max(0px, env(safe-area-inset-right, 0px));
     }
 
     .exam-header {
-        padding: 24px 20px;
+        padding: 22px 18px;
+        position: sticky;
+        top: 0;
+        top: env(safe-area-inset-top, 0px);
+        z-index: 30;
     }
 
     .exam-header h1 {
         font-size: 22px;
+        overflow-wrap: anywhere;
     }
 
     .question-card {
-        padding: 20px 16px;
+        padding: 18px 16px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .option {
+        min-height: 52px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .submit-wrap {
+        margin-top: 20px;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     .submit-btn {
@@ -244,27 +267,33 @@ body {
 @media (max-width: 480px) {
     .exam-container {
         width: 100%;
-        margin: 12px auto 32px;
-        padding: 0 10px;
+        margin: 10px auto 28px;
+        padding: 0 10px calc(12px + env(safe-area-inset-bottom, 0px));
         box-sizing: border-box;
     }
 
     .exam-header {
-        padding: 20px 16px;
+        padding: 18px 14px;
         border-radius: 18px;
     }
 
     .exam-header h1 {
-        font-size: 20px;
+        font-size: 19px;
+    }
+
+    .exam-header p {
+        font-size: 13px;
     }
 
     .question-card {
         padding: 16px 14px;
         border-radius: 16px;
+        margin-bottom: 14px;
     }
 
     .question-card h3 {
         font-size: 15px;
+        margin-bottom: 14px;
     }
 
     .option {
@@ -286,10 +315,19 @@ body {
 
 @media (max-width: 360px) {
     .exam-container {
-        padding: 0 8px;
+        padding: 0 8px calc(10px + env(safe-area-inset-bottom, 0px));
     }
 
     .exam-header h1 {
-        font-size: 18px;
+        font-size: 17px;
+    }
+
+    .question-card {
+        padding: 14px 12px;
+    }
+
+    .option {
+        padding: 11px 10px;
+        gap: 8px;
     }
 }

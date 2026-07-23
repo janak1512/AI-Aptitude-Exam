@@ -245,15 +245,25 @@
         flex-direction: column;
     }
 
+    .company-input-row input {
+        flex: 1 1 auto;
+        width: 100%;
+        font-size: 16px;
+    }
+
     .analyze-btn,
     .generate-btn {
         width: 100%;
         justify-content: center;
+        min-height: 48px;
     }
 
     .company-hero,
     .pattern-panel {
         padding: 22px 20px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 }
 

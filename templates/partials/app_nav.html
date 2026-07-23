@@ -5,8 +5,7 @@
         <button
             class="navbar-toggler sidebar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#appNavCollapse"
+            id="sidebarToggler"
             aria-controls="appNavCollapse"
             aria-expanded="false"
             aria-label="Toggle navigation"
@@ -15,7 +14,21 @@
         </button>
     </div>
 
-    <div class="collapse navbar-collapse" id="appNavCollapse">
+    <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
+
+    <nav class="sidebar-drawer" id="appNavCollapse" aria-hidden="true">
+        <div class="sidebar-drawer-head">
+            <div class="logo sidebar-drawer-logo">🧠 AI Exam</div>
+            <button
+                type="button"
+                class="sidebar-drawer-close"
+                id="sidebarDrawerClose"
+                aria-label="Close navigation"
+            >
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
         <ul class="navbar-nav sidebar-menu">
             <li class="{% if active_page == 'dashboard' %}active{% endif %}">
                 <a class="nav-link" href="{{ url_for('dashboard') }}">
@@ -60,5 +73,5 @@
                 </a>
             </li>
         </ul>
-    </div>
+    </nav>
 </aside>

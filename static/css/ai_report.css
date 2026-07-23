@@ -928,6 +928,12 @@ body{
 
         margin:12px auto;
 
+        width:100%;
+
+        max-width:100%;
+
+        box-sizing:border-box;
+
     }
 
     .ai-header{
@@ -939,6 +945,12 @@ body{
         text-align:center;
 
         padding:28px 22px;
+
+        width:100%;
+
+        max-width:100%;
+
+        box-sizing:border-box;
 
     }
 

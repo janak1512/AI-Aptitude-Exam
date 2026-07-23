@@ -519,36 +519,57 @@ input[type="radio"] {
 @media (max-width: 768px) {
     .exam-container {
         width: 96%;
+        max-width: 100%;
         margin: 12px auto 28px;
+        padding-left: max(0px, env(safe-area-inset-left, 0px));
+        padding-right: max(0px, env(safe-area-inset-right, 0px));
+        box-sizing: border-box;
     }
 
     .exam-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 14px;
-        padding: 16px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: left;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
         position: sticky;
         top: 0;
+        top: env(safe-area-inset-top, 0px);
         z-index: 40;
+        border-radius: 16px;
     }
 
     .header-left {
         min-width: 0;
-        width: 100%;
+        flex: 1 1 auto;
     }
 
     .header-left h1 {
-        font-size: 20px;
+        font-size: 18px;
         word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+
+    .header-left p {
+        font-size: 13px;
     }
 
     .header-right {
-        width: 100%;
+        flex: 0 0 auto;
     }
 
     .timer-box {
-        width: 100%;
+        width: auto;
+        min-width: 120px;
+        padding: 10px 16px;
         box-sizing: border-box;
+    }
+
+    .timer-box h2 {
+        font-size: 22px;
+        letter-spacing: 1px;
     }
 
     .exam-right {
@@ -558,6 +579,9 @@ input[type="radio"] {
     .question-card {
         padding: 20px 16px;
         border-radius: 18px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .question-title {
@@ -572,6 +596,8 @@ input[type="radio"] {
         border-radius: 14px;
         min-height: 52px;
         align-items: flex-start;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .option-letter {
@@ -589,23 +615,31 @@ input[type="radio"] {
     }
 
     .navigation-buttons {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
 
-    .btn {
+    .navigation-buttons .btn {
         width: 100%;
         min-height: 48px;
         box-sizing: border-box;
+        padding: 12px 14px;
     }
 
     .palette-grid {
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 8px;
+        max-height: min(280px, 40vh);
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 2px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .palette-btn {
         width: 100%;
-        max-width: 48px;
+        max-width: none;
         aspect-ratio: 1;
         height: auto;
         min-height: 44px;
@@ -614,6 +648,9 @@ input[type="radio"] {
     .palette-card,
     .summary-card {
         padding: 18px 16px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .submit-btn {
@@ -646,8 +683,30 @@ input[type="radio"] {
     .exam-container {
         width: 100%;
         margin: 0 auto 24px;
-        padding: 10px 10px 0;
+        padding: 10px 10px calc(16px + env(safe-area-inset-bottom, 0px));
         box-sizing: border-box;
+    }
+
+    .exam-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        padding: 12px 14px;
+    }
+
+    .header-right,
+    .timer-box {
+        width: 100%;
+    }
+
+    .timer-box {
+        padding: 10px 14px;
+        min-width: 0;
+    }
+
+    .timer-box h2 {
+        font-size: 20px;
+        letter-spacing: 1px;
     }
 
     .exam-header,
@@ -658,29 +717,24 @@ input[type="radio"] {
         border-radius: 16px;
     }
 
-    .timer-box {
-        width: 100%;
-        padding: 12px 16px;
-        min-width: 0;
-    }
-
-    .timer-box h2 {
-        font-size: 22px;
-        letter-spacing: 1px;
-    }
-
     .header-left h1 {
-        font-size: 18px;
+        font-size: 17px;
+    }
+
+    .navigation-buttons {
+        grid-template-columns: 1fr;
     }
 
     .palette-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 6px;
     }
 
     .palette-btn {
         max-width: none;
         width: 100%;
         font-size: 13px;
+        min-height: 40px;
     }
 
     .info-item {

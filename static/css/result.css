@@ -318,11 +318,18 @@ body {
 @media (max-width: 768px) {
     .result-container {
         width: 96%;
+        max-width: 100%;
         margin: 20px auto;
+        box-sizing: border-box;
+        padding-left: max(0px, env(safe-area-inset-left, 0px));
+        padding-right: max(0px, env(safe-area-inset-right, 0px));
     }
 
     .result-card {
         padding: 24px 18px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .result-card h1 {
@@ -346,6 +353,12 @@ body {
 
     .stats-grid {
         grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .stat-box {
+        min-width: 0;
+        box-sizing: border-box;
     }
 
     .stat-box h3 {
