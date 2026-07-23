@@ -276,63 +276,55 @@ Format:
 def home():
     return render_template("index.html")
 
-
-# ==========================================================
-# REGISTER
-# ==========================================================
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 
     if request.method == 'POST':
+        try:
+            fullname = request.form['fullname']
+            email = request.form['email']
+            mobile = request.form['mobile']
+            college = request.form['college']
+            password = request.form['password']
+            confirm_password = request.form['confirm_password']
 
-        fullname = request.form['fullname']
-        email = request.form['email']
-        mobile = request.form['mobile']
-        college = request.form['college']
-        password = request.form['password']
-        confirm_password = request.form['confirm_password']
+            if password != confirm_password:
+                return "Passwords do not match!"
 
-        if password != confirm_password:
-            return "Passwords do not match!"
+            conn = get_db_connection()
+            cursor = conn.cursor(dictionary=True)
 
-        conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
+            cursor.execute(
+                "SELECT * FROM users WHERE email=%s",
+                (email,)
+            )
 
-        cursor.execute(
-            "SELECT * FROM users WHERE email=%s",
-            (email,)
-        )
+            user = cursor.fetchone()
 
-        user = cursor.fetchone()
+            if user:
+                conn.close()
+                return "Email already exists!"
 
-        if user:
-            conn.close()
-            return "Email already exists!"
-
-        cursor.execute("""
-            INSERT INTO users
-            (
+            cursor.execute("""
+                INSERT INTO users
+                (fullname, email, mobile, college, password)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (
                 fullname,
                 email,
                 mobile,
                 college,
                 password
-            )
-            VALUES
-            (%s,%s,%s,%s,%s)
-        """, (
-            fullname,
-            email,
-            mobile,
-            college,
-            password
-        ))
+            ))
 
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-        return redirect("/login")
+            return redirect("/login")
+
+        except Exception as e:
+            import traceback
+            return f"<pre>{traceback.format_exc()}</pre>"
 
     return render_template("register.html")
 
