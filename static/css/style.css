@@ -82,3 +82,30 @@ p {
         font-size: 26px;
     }
 }
+
+@media (max-width: 360px) {
+    body {
+        padding: 12px 8px;
+    }
+
+    .container {
+        padding: 28px 18px;
+        border-radius: 18px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .btn {
+        width: 100%;
+        min-height: 48px;
+        box-sizing: border-box;
+        padding: 14px 20px;
+    }
+}

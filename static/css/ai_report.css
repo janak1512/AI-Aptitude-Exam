@@ -12,6 +12,8 @@ body{
     font-family:'Poppins',sans-serif;
     background:var(--bg, #F4F7FC);
     color:var(--text, #1E293B);
+    overflow-x:clip;
+    max-width:100%;
 }
 
 .ai-container{
@@ -21,6 +23,10 @@ body{
     margin:30px auto;
 
     padding:0 25px;
+
+    width:100%;
+
+    box-sizing:border-box;
 
 }
 
@@ -227,7 +233,7 @@ body{
 
     display:grid;
 
-    grid-template-columns:2.4fr 1fr;
+    grid-template-columns:minmax(0, 2.4fr) minmax(0, 1fr);
 
     gap:28px;
 
@@ -243,6 +249,8 @@ body{
 
     gap:28px;
 
+    min-width:0;
+
 }
 
 .right-column{
@@ -256,6 +264,8 @@ body{
     position:sticky;
 
     top:20px;
+
+    min-width:0;
 
 }
 
@@ -531,6 +541,10 @@ body{
     line-height:1.8;
 
     color:#374151;
+
+    min-width:0;
+
+    overflow-wrap:anywhere;
 
 }
 
@@ -892,6 +906,12 @@ body{
 
         position:static;
 
+        display:grid;
+
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+
+        gap:20px;
+
     }
 
 }
@@ -904,9 +924,9 @@ body{
 
     .ai-container{
 
-        padding:15px;
+        padding:12px;
 
-        margin:15px auto;
+        margin:12px auto;
 
     }
 
@@ -922,9 +942,16 @@ body{
 
     }
 
+    .header-left{
+        min-width:0;
+        width:100%;
+    }
+
     .header-left h1{
 
-        font-size:28px;
+        font-size:26px;
+
+        overflow-wrap:anywhere;
 
     }
 
@@ -940,6 +967,8 @@ body{
 
         height:150px;
 
+        flex-shrink:0;
+
     }
 
     .overall-score h2{
@@ -954,9 +983,15 @@ body{
 
     }
 
+    .right-column{
+        grid-template-columns:1fr;
+    }
+
     .card{
 
         padding:20px;
+
+        min-width:0;
 
     }
 
@@ -967,6 +1002,8 @@ body{
         height:55px;
 
         font-size:24px;
+
+        flex-shrink:0;
 
     }
 
@@ -986,6 +1023,12 @@ body{
 
         font-size:21px;
 
+    }
+
+    .analysis-list li{
+        font-size:14px;
+        padding:14px 16px;
+        overflow-wrap:anywhere;
     }
 
     .performance-header{
@@ -1036,6 +1079,10 @@ body{
 
         min-width:100%;
 
+        min-height:48px;
+
+        box-sizing:border-box;
+
     }
 
 }
@@ -1046,9 +1093,13 @@ body{
 
 @media (max-width:480px){
 
+    .ai-container{
+        padding:10px;
+    }
+
     .header-left h1{
 
-        font-size:24px;
+        font-size:22px;
 
     }
 
@@ -1082,9 +1133,11 @@ body{
 
     .performance-badge{
 
-        font-size:18px;
+        font-size:16px;
 
-        padding:18px;
+        padding:16px;
+
+        overflow-wrap:anywhere;
 
     }
 
@@ -1096,6 +1149,37 @@ body{
 
         font-size:38px;
 
+    }
+
+    .report-card{
+        padding:16px;
+        border-radius:14px;
+    }
+
+    .ai-insight{
+        padding:16px;
+        font-size:14px;
+    }
+
+}
+
+@media (max-width:360px){
+
+    .ai-container{
+        padding:8px;
+    }
+
+    .header-left h1{
+        font-size:20px;
+    }
+
+    .overall-score{
+        width:110px;
+        height:110px;
+    }
+
+    .overall-score h2{
+        font-size:26px;
     }
 
 }

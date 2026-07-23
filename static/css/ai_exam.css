@@ -5,12 +5,15 @@
 body {
     background: var(--bg, #F4F7FC);
     color: var(--text, #1E293B);
+    overflow-x: clip;
+    max-width: 100%;
 }
 
 .exam-container {
     width: min(860px, 92%);
     margin: 40px auto 60px;
     animation: fadeUp 0.45s ease;
+    box-sizing: border-box;
 }
 
 .exam-header {
@@ -72,6 +75,7 @@ body {
     align-items: center;
     gap: 8px;
     margin-bottom: 12px;
+    flex-wrap: wrap;
 }
 
 .q-number {
@@ -95,6 +99,8 @@ body {
     font-weight: 600;
     padding: 4px 10px;
     border-radius: 40px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .q-topic {
@@ -113,6 +119,7 @@ body {
     font-weight: 600;
     line-height: 1.55;
     margin-bottom: 18px;
+    overflow-wrap: anywhere;
 }
 
 .options {
@@ -123,7 +130,7 @@ body {
 
 .option {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 14px;
     background: #F8FAFC;
     padding: 14px 16px;
@@ -132,6 +139,7 @@ body {
     border: 1.5px solid transparent;
     transition: 0.22s ease;
     position: relative;
+    min-height: 52px;
 }
 
 .option:hover {
@@ -166,6 +174,8 @@ body {
     font-size: 15px;
     color: var(--text, #1E293B);
     line-height: 1.45;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .option:has(input:checked) {
@@ -226,5 +236,60 @@ body {
     .submit-btn {
         width: 100%;
         padding: 15px 24px;
+        min-height: 48px;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) {
+    .exam-container {
+        width: 100%;
+        margin: 12px auto 32px;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .exam-header {
+        padding: 20px 16px;
+        border-radius: 18px;
+    }
+
+    .exam-header h1 {
+        font-size: 20px;
+    }
+
+    .question-card {
+        padding: 16px 14px;
+        border-radius: 16px;
+    }
+
+    .question-card h3 {
+        font-size: 15px;
+    }
+
+    .option {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .option-letter {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        margin-top: 1px;
+    }
+
+    .option-text {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 360px) {
+    .exam-container {
+        padding: 0 8px;
+    }
+
+    .exam-header h1 {
+        font-size: 18px;
     }
 }

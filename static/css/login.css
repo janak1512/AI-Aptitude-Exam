@@ -12,6 +12,9 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 24px;
+    overflow-x: clip;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .container {
@@ -91,6 +94,9 @@ body {
     margin-bottom: 16px;
     background: #F8FAFC;
     transition: 0.22s ease;
+    min-height: 52px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .input-box:focus-within {
@@ -196,5 +202,62 @@ button[type="submit"],
 
     .right {
         padding: 36px 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 16px 12px;
+        align-items: flex-start;
+    }
+
+    .container {
+        border-radius: 18px;
+    }
+
+    .left {
+        padding: 28px 20px;
+    }
+
+    .left h1 {
+        font-size: 24px;
+        margin-bottom: 12px;
+    }
+
+    .left p {
+        font-size: 14px;
+        max-width: none;
+    }
+
+    .right {
+        padding: 28px 20px;
+    }
+
+    .right h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .row {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        padding: 12px 8px;
+    }
+
+    .left,
+    .right {
+        padding: 22px 16px;
+    }
+
+    .left h1 {
+        font-size: 22px;
+    }
+
+    .right h2 {
+        font-size: 20px;
     }
 }

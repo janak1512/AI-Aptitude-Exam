@@ -14,49 +14,49 @@
 
 <body>
 
-<aside class="sidebar">
+<aside class="sidebar" aria-label="Main navigation">
     <div class="logo">🧠 AI Exam</div>
     <ul>
         <li>
             <a href="{{ url_for('dashboard') }}">
                 <i class="fa-solid fa-house"></i>
-                Dashboard
+                <span class="nav-label">Dashboard</span>
             </a>
         </li>
         <li class="active">
             <a href="{{ url_for('practice') }}">
                 <i class="fa-solid fa-book"></i>
-                Practice
+                <span class="nav-label">Practice</span>
             </a>
         </li>
         <li>
             <a href="{{ url_for('company_practice') }}">
                 <i class="fa-solid fa-building"></i>
-                Company Prep
+                <span class="nav-label">Company Prep</span>
             </a>
         </li>
         <li>
             <a href="{{ url_for('ai_coach') }}">
                 <i class="fa-solid fa-robot"></i>
-                AI Coach
+                <span class="nav-label">AI Coach</span>
             </a>
         </li>
         <li>
             <a href="{{ url_for('results') }}">
                 <i class="fa-solid fa-chart-line"></i>
-                Results
+                <span class="nav-label">Results</span>
             </a>
         </li>
         <li>
             <a href="{{ url_for('profile') }}">
                 <i class="fa-solid fa-user"></i>
-                Profile
+                <span class="nav-label">Profile</span>
             </a>
         </li>
         <li>
             <a href="{{ url_for('logout') }}">
                 <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
+                <span class="nav-label">Logout</span>
             </a>
         </li>
     </ul>
@@ -76,11 +76,9 @@
 
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="flash-wrap" style="margin-bottom:16px;">
+    <div class="flash-wrap">
         {% for message in messages %}
-        <div style="background:#FEF2F2;color:#B91C1C;border:1px solid #FECACA;padding:12px 16px;border-radius:14px;font-size:14px;margin-bottom:8px;">
-            {{ message }}
-        </div>
+        <div class="flash-msg">{{ message }}</div>
         {% endfor %}
     </div>
     {% endif %}
