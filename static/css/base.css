@@ -165,8 +165,62 @@ input {
 .sidebar .nav-link {
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
-    color: inherit;
     text-decoration: none;
+}
+
+/* Active sidebar item: keep text/icon white in all link states (desktop + mobile).
+   Do not use color:inherit on .nav-link — it overrides page white link colors. */
+.sidebar li.active a,
+.sidebar li.active a:link,
+.sidebar li.active a:visited,
+.sidebar li.active a:hover,
+.sidebar li.active a:focus,
+.sidebar li.active a:focus-visible,
+.sidebar li.active a:active,
+.sidebar .active a,
+.sidebar .active a:link,
+.sidebar .active a:visited,
+.sidebar .active a:hover,
+.sidebar .active a:focus,
+.sidebar .active a:focus-visible,
+.sidebar .active a:active,
+.sidebar li.active .nav-link,
+.sidebar li.active .nav-link:link,
+.sidebar li.active .nav-link:visited,
+.sidebar li.active .nav-link:hover,
+.sidebar li.active .nav-link:focus,
+.sidebar li.active .nav-link:focus-visible,
+.sidebar li.active .nav-link:active,
+.sidebar .active .nav-link,
+.sidebar .active .nav-link:link,
+.sidebar .active .nav-link:visited,
+.sidebar .active .nav-link:hover,
+.sidebar .active .nav-link:focus,
+.sidebar .active .nav-link:focus-visible,
+.sidebar .active .nav-link:active {
+    color: #fff;
+}
+
+.sidebar li.active a i,
+.sidebar li.active a:link i,
+.sidebar li.active a:visited i,
+.sidebar li.active a:hover i,
+.sidebar li.active a:focus i,
+.sidebar li.active a:active i,
+.sidebar .active a i,
+.sidebar .active a:visited i,
+.sidebar .active a:hover i,
+.sidebar .active a:focus i,
+.sidebar .active a:active i,
+.sidebar li.active .nav-link i,
+.sidebar li.active .nav-link:visited i,
+.sidebar li.active .nav-link:hover i,
+.sidebar li.active .nav-link:focus i,
+.sidebar li.active .nav-link:active i,
+.sidebar .active .nav-link i,
+.sidebar li.active .nav-label,
+.sidebar .active .nav-label {
+    color: #fff;
 }
 
 .sidebar .navbar-nav,
