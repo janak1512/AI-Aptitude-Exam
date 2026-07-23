@@ -11,7 +11,7 @@ def get_db_connection():
         user=os.getenv("DB_USER"),
         password=os.getenv("DB_PASSWORD"),
         database=os.getenv("DB_NAME"),
-        ssl_ca=os.getenv("DB_SSL_CA"),
+        ssl_ca="certs/isrgrootx1.pem",
     )
 
     return connection
