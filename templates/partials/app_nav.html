@@ -1,0 +1,64 @@
+{# Shared app navigation. Set active_page before include: dashboard|practice|company|ai_coach|results|profile #}
+<aside class="sidebar" aria-label="Main navigation">
+    <div class="sidebar-bar">
+        <div class="logo">🧠 AI Exam</div>
+        <button
+            class="navbar-toggler sidebar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#appNavCollapse"
+            aria-controls="appNavCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="sidebar-toggler-icon" aria-hidden="true">☰</span>
+        </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="appNavCollapse">
+        <ul class="navbar-nav sidebar-menu">
+            <li class="{% if active_page == 'dashboard' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+            <li class="{% if active_page == 'practice' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('practice') }}">
+                    <i class="fa-solid fa-book"></i>
+                    <span class="nav-label">Practice</span>
+                </a>
+            </li>
+            <li class="{% if active_page == 'company' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('company_practice') }}">
+                    <i class="fa-solid fa-building"></i>
+                    <span class="nav-label">Company Prep</span>
+                </a>
+            </li>
+            <li class="{% if active_page == 'ai_coach' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('ai_coach') }}">
+                    <i class="fa-solid fa-robot"></i>
+                    <span class="nav-label">AI Coach</span>
+                </a>
+            </li>
+            <li class="{% if active_page == 'results' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('results') }}">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="nav-label">Results</span>
+                </a>
+            </li>
+            <li class="{% if active_page == 'profile' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('profile') }}">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="nav-label">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ url_for('logout') }}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="nav-label">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
