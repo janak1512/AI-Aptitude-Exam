@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="brand-badge">🧠 AI Education Platform</div>
+    <h1>AI Aptitude Exam</h1>
+    <p>
+        Practice aptitude questions with AI-powered analysis,
+        explanations, and personalized recommendations for placement success.
+    </p>
+    <a href="/login" class="btn">Start Preparing</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+Exam Instructions
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/instructions.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>{{ category.category_name }}</h1>
+
+        <hr>
+
+        <div class="exam-info">
+
+            <p><strong>Total Questions :</strong> {{ total_questions }}</p>
+
+            <p><strong>Time :</strong> {{ total_questions }} Minutes</p>
+
+            <p><strong>Total Marks :</strong> {{ total_questions }}</p>
+
+            <p><strong>Negative Marking :</strong> No</p>
+
+        </div>
+
+        <hr>
+
+        <h3>Instructions</h3>
+
+        <ul>
+            <li>Read every question carefully.</li>
+            <li>Select only one option for each question.</li>
+            <li>You can move between Previous and Next questions.</li>
+            <li>Your answers will be saved automatically.</li>
+            <li>You can jump to any question using the Question Palette.</li>
+            <li>The exam will automatically submit when the timer expires.</li>
+            <li>Click <strong>Submit Exam</strong> only after reviewing all questions.</li>
+        </ul>
+
+        <div class="btn-group">
+
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                ← Back
+            </a>
+
+            <a href="{{ url_for('start_exam', category_id=category.id) }}"
+               class="btn btn-primary">
+                Start Exam →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

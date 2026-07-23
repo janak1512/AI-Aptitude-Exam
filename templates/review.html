@@ -1,0 +1,558 @@
+{% extends "base.html" %}
+
+{% block title %}
+Review Answers
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/review.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="review-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="review-header">
+
+        <div class="header-left">
+
+            <h1>📖 Review Answers</h1>
+
+            <p>
+
+                {{ result.category_name }}
+
+            </p>
+
+        </div>
+
+        <div class="header-right">
+
+            <div class="score-box">
+
+                <span>
+
+                    Final Score
+
+                </span>
+
+                <h2>
+
+                    {{ result.score }}/{{ result.total_questions }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SUMMARY ================= -->
+
+    <div class="summary-card">
+
+        <div class="summary-item">
+
+            <h3>
+
+                {{ result.correct_answers }}
+
+            </h3>
+
+            <span>
+
+                Correct
+
+            </span>
+
+        </div>
+
+        <div class="summary-item">
+
+            <h3>
+
+                {{ result.wrong_answers }}
+
+            </h3>
+
+            <span>
+
+                Wrong
+
+            </span>
+
+        </div>
+
+        <div class="summary-item">
+
+            <h3>
+
+                {{ result.total_questions }}
+
+            </h3>
+
+            <span>
+
+                Total
+
+            </span>
+
+        </div>
+
+        <div class="summary-item">
+
+            <h3>
+
+                {{ result.percentage }}%
+
+            </h3>
+
+            <span>
+
+                Percentage
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- ================= MAIN LAYOUT ================= -->
+
+    <div class="review-layout">
+
+        <!-- ================= LEFT ================= -->
+
+        <div class="review-left">
+
+            {% for q in review %}
+
+            <div class="question-card">
+
+                <div class="question-top">
+
+                    <span class="question-number">
+
+                        Question {{ loop.index }}
+
+                    </span>
+
+                    {% if q.is_correct %}
+
+                    <span class="status correct">
+
+                        ✔ Correct
+
+                    </span>
+
+                    {% elif q.selected_option %}
+
+                    <span class="status wrong">
+
+                        ✖ Incorrect
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="status skipped">
+
+                        ⚪ Not Attempted
+
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+                <h2 class="question-title">
+
+                    {{ q.question }}
+
+                </h2>
+
+                <div class="options">
+                                    <!-- OPTION A -->
+
+                <div class="option
+                    {% if q.correct_answer == 'A' %}correct-option{% endif %}
+                    {% if q.selected_option == 'A' and not q.is_correct %}wrong-option{% endif %}">
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">
+
+                        {{ q.option_a }}
+
+                    </span>
+
+                    {% if q.selected_option == 'A' %}
+
+                        <span class="your-answer">
+
+                            Your Answer
+
+                        </span>
+
+                    {% endif %}
+
+                    {% if q.correct_answer == 'A' %}
+
+                        <span class="correct-answer">
+
+                            ✔ Correct
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- OPTION B -->
+
+                <div class="option
+                    {% if q.correct_answer == 'B' %}correct-option{% endif %}
+                    {% if q.selected_option == 'B' and not q.is_correct %}wrong-option{% endif %}">
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">
+
+                        {{ q.option_b }}
+
+                    </span>
+
+                    {% if q.selected_option == 'B' %}
+
+                        <span class="your-answer">
+
+                            Your Answer
+
+                        </span>
+
+                    {% endif %}
+
+                    {% if q.correct_answer == 'B' %}
+
+                        <span class="correct-answer">
+
+                            ✔ Correct
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- OPTION C -->
+
+                <div class="option
+                    {% if q.correct_answer == 'C' %}correct-option{% endif %}
+                    {% if q.selected_option == 'C' and not q.is_correct %}wrong-option{% endif %}">
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">
+
+                        {{ q.option_c }}
+
+                    </span>
+
+                    {% if q.selected_option == 'C' %}
+
+                        <span class="your-answer">
+
+                            Your Answer
+
+                        </span>
+
+                    {% endif %}
+
+                    {% if q.correct_answer == 'C' %}
+
+                        <span class="correct-answer">
+
+                            ✔ Correct
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- OPTION D -->
+
+                <div class="option
+                    {% if q.correct_answer == 'D' %}correct-option{% endif %}
+                    {% if q.selected_option == 'D' and not q.is_correct %}wrong-option{% endif %}">
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">
+
+                        {{ q.option_d }}
+
+                    </span>
+
+                    {% if q.selected_option == 'D' %}
+
+                        <span class="your-answer">
+
+                            Your Answer
+
+                        </span>
+
+                    {% endif %}
+
+                    {% if q.correct_answer == 'D' %}
+
+                        <span class="correct-answer">
+
+                            ✔ Correct
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- ================= ANSWER SUMMARY ================= -->
+
+            <div class="answer-summary">
+
+                <div class="answer-row">
+
+                    <span>
+
+                        Your Answer
+
+                    </span>
+
+                    <strong>
+
+                        {{ q.selected_option if q.selected_option else "Not Attempted" }}
+
+                    </strong>
+
+                </div>
+
+                <div class="answer-row">
+
+                    <span>
+
+                        Correct Answer
+
+                    </span>
+
+                    <strong class="correct-text">
+
+                        {{ q.correct_answer }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- ================= EXPLANATION ================= -->
+
+            <div class="explanation-card">
+
+                <h3>
+
+                    💡 Explanation
+
+                </h3>
+
+                <p>
+
+                    {{ q.explanation }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        </div>
+                <!-- ================= RIGHT SIDEBAR ================= -->
+
+        <div class="review-right">
+
+            <!-- Question Palette -->
+
+            <div class="palette-card">
+
+                <h3>
+
+                    Question Palette
+
+                </h3>
+
+                <div class="palette-grid">
+
+                    {% for q in review %}
+
+                        {% if q.is_correct %}
+
+                            <div class="palette-btn correct-btn">
+
+                                {{ loop.index }}
+
+                            </div>
+
+                        {% elif q.selected_option %}
+
+                            <div class="palette-btn wrong-btn">
+
+                                {{ loop.index }}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="palette-btn skipped-btn">
+
+                                {{ loop.index }}
+
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- Legend -->
+
+            <div class="legend-card">
+
+                <h3>
+
+                    Legend
+
+                </h3>
+
+                <div class="legend-item">
+
+                    <span class="legend-box correct-box"></span>
+
+                    <span>Correct Answer</span>
+
+                </div>
+
+                <div class="legend-item">
+
+                    <span class="legend-box wrong-box"></span>
+
+                    <span>Wrong Answer</span>
+
+                </div>
+
+                <div class="legend-item">
+
+                    <span class="legend-box skipped-box"></span>
+
+                    <span>Not Attempted</span>
+
+                </div>
+
+            </div>
+
+            <!-- Quick Summary -->
+
+            <div class="quick-summary">
+
+                <h3>
+
+                    Performance
+
+                </h3>
+
+                <div class="summary-row">
+
+                    <span>Score</span>
+
+                    <strong>
+
+                        {{ result.score }}/{{ result.total_questions }}
+
+                    </strong>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>Percentage</span>
+
+                    <strong>
+
+                        {{ result.percentage }}%
+
+                    </strong>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>Correct</span>
+
+                    <strong>
+
+                        {{ result.correct_answers }}
+
+                    </strong>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>Wrong</span>
+
+                    <strong>
+
+                        {{ result.wrong_answers }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+
+            <div class="action-buttons">
+
+                <a href="{{ url_for('ai_report', result_id=result.id) }}"
+                   class="btn btn-primary">
+
+                    🤖 AI Report
+
+                </a>
+
+                <a href="{{ url_for('dashboard') }}"
+                   class="btn btn-success">
+
+                    🏠 Dashboard
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

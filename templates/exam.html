@@ -1,0 +1,445 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Aptitude Exam
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/exam.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="exam-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="exam-header">
+
+        <div class="header-left">
+
+            <h1>🧠 AI Aptitude Exam</h1>
+
+            <p>{{ question_no }} / {{ total_questions }}</p>
+
+        </div>
+
+        <div class="header-right">
+
+            <div class="timer-box">
+
+                <span>⏰ Time Left</span>
+
+                <h2 id="timer">20:00</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= PROGRESS ================= -->
+
+    <div class="progress-card">
+
+        <div class="progress-top">
+
+            <span>
+
+                Question {{ question_no }}
+                of
+                {{ total_questions }}
+
+            </span>
+
+            <span>
+
+                {{ progress }}%
+
+            </span>
+
+        </div>
+
+<div class="progress">
+    <div class="progress-fill" id="progressFill"></div>
+</div>
+
+    </div>
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="exam-layout">
+
+        <!-- LEFT SIDE -->
+
+        <div class="exam-left">
+
+            <form
+                action="/save_answer"
+                method="POST"
+                id="examForm">
+
+                <input
+                    type="hidden"
+                    name="session_id"
+                    value="{{ session_id }}">
+
+                <input
+                    type="hidden"
+                    name="question_id"
+                    value="{{ question.id }}">
+
+                <input
+                    type="hidden"
+                    name="question_no"
+                    value="{{ question_no }}">
+
+                <input
+                    type="hidden"
+                    id="action"
+                    name="action">
+
+                <input
+                    type="hidden"
+                    id="goto"
+                    name="goto">
+
+                <!-- QUESTION CARD -->
+
+                <div class="question-card">
+
+                    <div class="question-label">
+
+                        Question {{ question_no }}
+
+                    </div>
+
+                    <h2 class="question-title">
+
+                        {{ question.question }}
+
+                    </h2>
+
+                    <div class="options">
+                                                <!-- OPTION A -->
+
+                        <label class="option-card">
+
+                            <input
+                                type="radio"
+                                name="selected_option"
+                                value="A"
+                                {% if selected_option=="A" %}checked{% endif %}>
+
+                            <span class="option-letter">
+                                A
+                            </span>
+
+                            <span class="option-text">
+
+                                {{ question.option_a }}
+
+                            </span>
+
+                        </label>
+
+                        <!-- OPTION B -->
+
+                        <label class="option-card">
+
+                            <input
+                                type="radio"
+                                name="selected_option"
+                                value="B"
+                                {% if selected_option=="B" %}checked{% endif %}>
+
+                            <span class="option-letter">
+                                B
+                            </span>
+
+                            <span class="option-text">
+
+                                {{ question.option_b }}
+
+                            </span>
+
+                        </label>
+
+                        <!-- OPTION C -->
+
+                        <label class="option-card">
+
+                            <input
+                                type="radio"
+                                name="selected_option"
+                                value="C"
+                                {% if selected_option=="C" %}checked{% endif %}>
+
+                            <span class="option-letter">
+                                C
+                            </span>
+
+                            <span class="option-text">
+
+                                {{ question.option_c }}
+
+                            </span>
+
+                        </label>
+
+                        <!-- OPTION D -->
+
+                        <label class="option-card">
+
+                            <input
+                                type="radio"
+                                name="selected_option"
+                                value="D"
+                                {% if selected_option=="D" %}checked{% endif %}>
+
+                            <span class="option-letter">
+                                D
+                            </span>
+
+                            <span class="option-text">
+
+                                {{ question.option_d }}
+
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <!-- ================= BUTTONS ================= -->
+
+                <div class="navigation-buttons">
+
+                    {% if previous_question %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-outline"
+                        onclick="document.getElementById('action').value='previous'">
+
+                        ← Previous
+
+                    </button>
+
+                    {% else %}
+
+                    <button
+                        type="button"
+                        class="btn btn-disabled"
+                        disabled>
+
+                        ← Previous
+
+                    </button>
+
+                    {% endif %}
+
+                    {% if next_question %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        onclick="document.getElementById('action').value='next'">
+
+                        Next →
+
+                    </button>
+
+                    {% else %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                        onclick="document.getElementById('action').value='submit'">
+
+                        Submit Exam
+
+                    </button>
+
+                    {% endif %}
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- RIGHT SIDE STARTS HERE -->
+
+        <div class="exam-right">
+
+            <div class="palette-card">
+
+                <h3>
+
+                    Question Palette
+
+                </h3>
+
+                <div class="palette-grid">
+                                        {% for item in palette %}
+
+                        <button
+                            type="submit"
+                            class="palette-btn {% if item.answered %}answered{% else %}not-answered{% endif %}"
+                            onclick="
+                                document.getElementById('action').value='palette';
+                                document.getElementById('goto').value='{{ item.number }}';
+                            ">
+
+                            {{ item.number }}
+
+                        </button>
+
+                    {% endfor %}
+
+                </div>
+
+                <hr>
+
+                <div class="palette-info">
+
+                    <div class="info-item">
+
+                        <span class="status answered-box"></span>
+
+                        <span>Answered</span>
+
+                    </div>
+
+                    <div class="info-item">
+
+                        <span class="status unanswered-box"></span>
+
+                        <span>Not Answered</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= EXAM SUMMARY ================= -->
+
+            <div class="summary-card">
+
+                <h3>
+
+                    Exam Summary
+
+                </h3>
+
+                <div class="summary-item">
+
+                    <span>Total Questions</span>
+
+                    <strong>{{ total_questions }}</strong>
+
+                </div>
+
+                <div class="summary-item">
+
+                    <span>Answered</span>
+
+                    <strong>
+
+                        {{ (progress * total_questions // 100) }}
+
+                    </strong>
+
+                </div>
+
+                <div class="summary-item">
+
+                    <span>Remaining</span>
+
+                    <strong>
+
+                        {{ total_questions - (progress * total_questions // 100) }}
+
+                    </strong>
+
+                </div>
+
+                <div class="summary-item">
+
+                    <span>Progress</span>
+
+                    <strong>
+
+                        {{ progress }}%
+
+                    </strong>
+
+                </div>
+
+                <button
+                    type="submit"
+                    form="examForm"
+                    class="submit-btn"
+                    onclick="document.getElementById('action').value='submit'">
+
+                    🚀 Submit Exam
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= TIMER SCRIPT ================= -->
+
+<script>
+
+let minutes = 20;
+let seconds = 0;
+
+const timer = document.getElementById("timer");
+
+const countdown = setInterval(function(){
+
+    if(seconds === 0){
+
+        if(minutes === 0){
+
+            clearInterval(countdown);
+
+            document.getElementById("action").value = "submit";
+
+            document.getElementById("examForm").submit();
+
+            return;
+
+        }
+
+        minutes--;
+        seconds = 59;
+
+    }else{
+
+        seconds--;
+
+    }
+
+    let mm = String(minutes).padStart(2,"0");
+    let ss = String(seconds).padStart(2,"0");
+
+    timer.innerHTML = mm + ":" + ss;
+
+},1000);
+
+</script>
+
+{% endblock %}

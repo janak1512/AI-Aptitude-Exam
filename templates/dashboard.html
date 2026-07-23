@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            🧠 AI Exam
+        </div>
+
+        <ul>
+            <li class="active">
+                <a href="{{ url_for('dashboard') }}">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('practice') }}">
+                    <i class="fa-solid fa-book"></i>
+                    Practice
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('company_practice') }}">
+                    <i class="fa-solid fa-building"></i>
+                    Company Prep
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('ai_coach') }}">
+                    <i class="fa-solid fa-robot"></i>
+                    AI Coach
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('results') }}">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Results
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('profile') }}">
+                    <i class="fa-solid fa-user"></i>
+                    Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('logout') }}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <div class="header">
+            <div>
+                <p class="page-eyebrow">Student Dashboard</p>
+                <h1>Welcome, {{ fullname }} 👋</h1>
+                <p>Practice smarter with AI-powered aptitude preparation.</p>
+            </div>
+            <div class="user">
+                <span class="user-avatar"><i class="fa-solid fa-user"></i></span>
+                {{ fullname }}
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <section class="stats-section" aria-label="Performance statistics">
+            <div class="cards">
+
+                <div class="card card-tests">
+                    <div class="stat-label">
+                        <span class="stat-icon"><i class="fa-solid fa-clipboard-list"></i></span>
+                        Tests Taken
+                    </div>
+                    <h2>{{ total_attempts }}</h2>
+                    <p class="stat-meta">Total exam attempts</p>
+                </div>
+
+                <div class="card card-score">
+                    <div class="stat-label">
+                        <span class="stat-icon"><i class="fa-solid fa-chart-simple"></i></span>
+                        Average Score
+                    </div>
+                    <h2>{{ average_score }}%</h2>
+                    <p class="stat-meta">Across all categories</p>
+                </div>
+
+                <div class="card card-accuracy">
+                    <div class="stat-label">
+                        <span class="stat-icon"><i class="fa-solid fa-bullseye"></i></span>
+                        Accuracy
+                    </div>
+                    <h2>{{ accuracy }}%</h2>
+                    <p class="stat-meta">Correct answer rate</p>
+                </div>
+
+                <div class="card card-rating">
+                    <div class="stat-label">
+                        <span class="stat-icon"><i class="fa-solid fa-robot"></i></span>
+                        AI Rating
+                    </div>
+                    <div class="rating-value">
+                        <h2>{{ ai_rating }}</h2>
+                        <div class="rating-stars" aria-hidden="true">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="stat-meta">AI readiness score</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Company Placement Prep -->
+        <section class="company-dash-cta" aria-label="Company placement prep">
+            <div>
+                <h2>Company Placement Prep</h2>
+                <p>Enter any company name and get AI questions matched to its placement pattern.</p>
+            </div>
+            <a href="{{ url_for('company_practice') }}" class="company-dash-btn">Start Company Prep</a>
+        </section>
+
+        <!-- Practice Categories -->
+        <section class="categories-section" aria-label="Practice categories">
+            <div class="section-head">
+                <div>
+                    <h2 class="title">Practice Categories</h2>
+                    <p class="section-sub">Choose a topic and start with database or AI-generated questions.</p>
+                </div>
+            </div>
+
+            <div class="categories">
+
+                {% for category in categories %}
+
+                <div class="category">
+
+                    <div class="category-top">
+                        <div class="category-icon">
+                            {% if category.id == 1 %}
+                                🧮
+                            {% elif category.id == 2 %}
+                                🧠
+                            {% elif category.id == 3 %}
+                                📖
+                            {% elif category.id == 4 %}
+                                💻
+                            {% elif category.id == 5 %}
+                                📊
+                            {% elif category.id == 6 %}
+                                🧩
+                            {% else %}
+                                📚
+                            {% endif %}
+                        </div>
+                        <div class="category-copy">
+                            <span>{{ category.category_name }}</span>
+                            <p>{{ category.description }}</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-buttons">
+
+                        <a href="/instructions/{{ category.id }}"
+                           class="db-btn"
+                           title="Practice (Database Questions)">
+                            <span class="btn-main">📚 Practice</span>
+                            <span class="btn-sub">Database Questions</span>
+                        </a>
+
+                        <a href="{{ url_for('generate_ai_test', category_id=category.id) }}"
+                           class="ai-btn"
+                           title="AI Practice (Generated Questions)">
+                            <span class="btn-main">🤖 AI Practice</span>
+                            <span class="btn-sub">Generated Questions</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

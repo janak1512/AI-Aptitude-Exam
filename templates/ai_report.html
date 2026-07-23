@@ -1,0 +1,576 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Performance Report
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/ai_report.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="ai-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="ai-header">
+
+        <div class="header-left">
+
+            <h1>🤖 AI Performance Report</h1>
+
+            <p>
+
+                Personalized analysis of your aptitude performance
+
+            </p>
+
+        </div>
+
+        <div class="header-right">
+
+            <div class="overall-score">
+
+                <span>Overall Score</span>
+
+                <h2>
+
+                    {{ result.percentage }}%
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= TOP CARDS ================= -->
+
+    <div class="top-cards">
+
+        <div class="card">
+
+            <div class="card-icon success">
+
+                🏆
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    {{ result.score }}/{{ result.total_questions }}
+
+                </h3>
+
+                <p>
+
+                    Correct Answers
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon primary">
+
+                📊
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    {{ result.percentage }}%
+
+                </h3>
+
+                <p>
+
+                    Accuracy
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon warning">
+
+                ⏱️
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    {{ result.time_taken }}
+
+                </h3>
+
+                <p>
+
+                    Time Taken
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon info">
+
+                🎯
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    {{ readiness }}
+
+                </h3>
+
+                <p>
+
+                    Placement Readiness
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= MAIN GRID ================= -->
+
+    <div class="ai-grid">
+
+        <!-- LEFT COLUMN -->
+
+        <div class="left-column">
+
+            <!-- Strengths -->
+
+            <div class="report-card">
+
+                <h2>
+
+                    🟢 Strengths
+
+                </h2>
+
+                <ul class="analysis-list">
+
+                    {% for item in strengths %}
+
+                    <li>
+
+                        ✔ {{ item }}
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            <!-- Weak Areas -->
+
+            <div class="report-card">
+
+                <h2>
+
+                    🔴 Areas to Improve
+
+                </h2>
+
+                <ul class="analysis-list warning-list">
+
+                    {% for item in weaknesses %}
+
+                    <li>
+
+                        {{ item }}
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+                        <!-- ================= PERFORMANCE BREAKDOWN ================= -->
+
+            <div class="report-card">
+
+                <h2>
+
+                    📊 Performance Breakdown
+
+                </h2>
+
+                <div class="performance-bars">
+
+                    {% for item in category_scores %}
+
+                    <div class="performance-item">
+
+                        <div class="performance-header">
+
+                            <span>
+
+                                {{ item.category }}
+
+                            </span>
+
+                            <strong>
+
+                                {{ item.percentage }}%
+
+                            </strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                        <div class="progress-fill"
+                            data-width="{{ item.percentage }}">
+                        </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- ================= AI RECOMMENDATIONS ================= -->
+
+            <div class="report-card">
+
+                <h2>
+
+                    💡 AI Recommendations
+
+                </h2>
+
+                <div class="recommendation-list">
+
+                    {% for recommendation in recommendations %}
+
+                    <div class="recommendation-item">
+
+                        <div class="recommendation-icon">
+
+                            💡
+
+                        </div>
+
+                        <div class="recommendation-text">
+
+                            {{ recommendation }}
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= RIGHT COLUMN ================= -->
+
+        <div class="right-column">
+
+            <!-- Placement Readiness -->
+
+            <div class="report-card readiness-card">
+
+                <h2>
+
+                    🎯 Placement Readiness
+
+                </h2>
+
+                <div class="readiness-score">
+
+                    {% if result.percentage >= 85 %}
+
+                        <div class="emoji">
+
+                            🟢
+
+                        </div>
+
+                    {% elif result.percentage >= 60 %}
+
+                        <div class="emoji">
+
+                            🟡
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="emoji">
+
+                            🔴
+
+                        </div>
+
+                    {% endif %}
+
+                    <h3>
+
+                        {{ readiness }}
+
+                    </h3>
+
+                    <p>
+
+                        {% if result.percentage >= 85 %}
+
+                            Excellent aptitude performance. You are well prepared for placement aptitude rounds.
+
+                        {% elif result.percentage >= 60 %}
+
+                            Good performance. With regular practice you can improve significantly.
+
+                        {% else %}
+
+                            Continue practicing aptitude topics to improve your placement readiness.
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- AI Insight -->
+
+            <div class="report-card">
+
+                <h2>
+
+                    🤖 AI Insight
+
+                </h2>
+
+                <p class="ai-insight">
+
+                    {{ ai_summary }}
+
+                </p>
+
+            </div>
+                        <!-- ================= PERFORMANCE BADGE ================= -->
+
+            <div class="report-card">
+
+                <h2>
+
+                    🏅 Performance Badge
+
+                </h2>
+
+                <div class="badge-section">
+
+                    {% if result.percentage >= 90 %}
+
+                        <div class="performance-badge excellent">
+
+                            🌟 Excellent Performer
+
+                        </div>
+
+                    {% elif result.percentage >= 75 %}
+
+                        <div class="performance-badge very-good">
+
+                            🥇 Very Good
+
+                        </div>
+
+                    {% elif result.percentage >= 60 %}
+
+                        <div class="performance-badge good">
+
+                            🥈 Good
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="performance-badge improve">
+
+                            📚 Keep Practicing
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- ================= EXAM DETAILS ================= -->
+
+            <div class="report-card">
+
+                <h2>
+
+                    📋 Exam Details
+
+                </h2>
+
+                <div class="detail-row">
+
+                    <span>
+
+                        Category
+
+                    </span>
+
+                    <strong>
+
+                        {{ result.category_name }}
+
+                    </strong>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span>
+
+                        Total Questions
+
+                    </span>
+
+                    <strong>
+
+                        {{ result.total_questions }}
+
+                    </strong>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span>
+
+                        Correct Answers
+
+                    </span>
+
+                    <strong>
+
+                        {{ result.correct_answers }}
+
+                    </strong>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span>
+
+                        Wrong Answers
+
+                    </span>
+
+                    <strong>
+
+                        {{ result.wrong_answers }}
+
+                    </strong>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span>
+
+                        Time Taken
+
+                    </span>
+
+                    <strong>
+
+                        {{ result.time_taken }}
+
+                    </strong>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span>
+
+                        Exam Date
+
+                    </span>
+
+                    <strong>
+
+                        {{ result.exam_date }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= ACTION BUTTONS ================= -->
+
+    <div class="bottom-actions">
+
+        <a href="{{ url_for('review_answers', result_id=result.id) }}"
+           class="btn btn-secondary">
+
+            📖 Review Answers
+
+        </a>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="btn btn-primary">
+
+            🏠 Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

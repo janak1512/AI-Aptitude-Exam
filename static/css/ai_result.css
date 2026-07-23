@@ -1,0 +1,167 @@
+/* ==========================================
+   AI Result — Modern Score Presentation
+========================================== */
+
+body {
+    background: var(--bg, #F4F7FC);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.result-card {
+    background: #fff;
+    padding: 44px 40px;
+    border-radius: var(--radius-lg, 22px);
+    text-align: center;
+    box-shadow: var(--shadow-hover);
+    border: 1px solid rgba(37, 99, 235, 0.06);
+    max-width: 460px;
+    width: 100%;
+    animation: fadeUp 0.5s ease;
+}
+
+.result-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563EB, #3B82F6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+}
+
+.result-card h1 {
+    color: var(--sidebar, #1E3A8A);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-muted, #64748B);
+    font-size: 15px;
+    margin-bottom: 28px;
+}
+
+.score-circle {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: conic-gradient(#2563EB 0deg, #2563EB calc(var(--pct, 70) * 3.6deg), #E2E8F0 calc(var(--pct, 70) * 3.6deg), #E2E8F0 360deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.score-circle::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.percentage {
+    position: relative;
+    z-index: 1;
+    font-size: 36px;
+    color: var(--primary, #2563EB);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.score-circle span {
+    position: relative;
+    z-index: 1;
+    font-size: 13px;
+    color: var(--text-muted, #64748B);
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.score-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #F8FAFC;
+    border-radius: 16px;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.meta-item strong {
+    font-size: 24px;
+    color: var(--primary, #2563EB);
+    font-weight: 700;
+}
+
+.meta-item span {
+    font-size: 13px;
+    color: var(--text-muted, #64748B);
+    font-weight: 500;
+}
+
+.meta-divider {
+    width: 1px;
+    height: 40px;
+    background: #E2E8F0;
+}
+
+.hint {
+    color: var(--text-muted, #64748B);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.coach-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary, #2563EB);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.25s ease;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+}
+
+.coach-btn:hover {
+    background: var(--primary-dark, #1D4ED8);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .result-card {
+        padding: 32px 22px;
+    }
+
+    .result-card h1 {
+        font-size: 22px;
+    }
+
+    .percentage {
+        font-size: 30px;
+    }
+}

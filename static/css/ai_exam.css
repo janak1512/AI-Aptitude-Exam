@@ -1,0 +1,230 @@
+/* ==========================================
+   AI Exam — Professional Exam Experience
+========================================== */
+
+body {
+    background: var(--bg, #F4F7FC);
+    color: var(--text, #1E293B);
+}
+
+.exam-container {
+    width: min(860px, 92%);
+    margin: 40px auto 60px;
+    animation: fadeUp 0.45s ease;
+}
+
+.exam-header {
+    background: #fff;
+    padding: 32px 34px;
+    border-radius: var(--radius-lg, 22px);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(37, 99, 235, 0.06);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-soft, #EFF6FF);
+    color: var(--primary, #2563EB);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 40px;
+    margin-bottom: 14px;
+}
+
+.exam-header h1 {
+    color: var(--sidebar, #1E3A8A);
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.exam-header p {
+    color: var(--text-muted, #64748B);
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+/* ---------- Question Card ---------- */
+
+.question-card {
+    background: #fff;
+    padding: 26px 28px;
+    margin-bottom: 18px;
+    border-radius: var(--radius, 20px);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(37, 99, 235, 0.06);
+    transition: 0.25s ease;
+}
+
+.question-card:hover {
+    border-color: #BFDBFE;
+    box-shadow: var(--shadow-hover);
+}
+
+.question-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.q-number {
+    background: var(--primary-soft, #EFF6FF);
+    color: var(--primary, #2563EB);
+    font-size: 12px;
+    font-weight: 650;
+    padding: 5px 12px;
+    border-radius: 40px;
+}
+
+.q-total {
+    color: var(--text-muted, #64748B);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.q-topic,
+.q-diff {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 40px;
+}
+
+.q-topic {
+    background: #ECFDF5;
+    color: #047857;
+}
+
+.q-diff {
+    background: #FFF7ED;
+    color: #C2410C;
+}
+
+.question-card h3 {
+    color: var(--text, #1E293B);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.55;
+    margin-bottom: 18px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #F8FAFC;
+    padding: 14px 16px;
+    border-radius: 14px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: 0.22s ease;
+    position: relative;
+}
+
+.option:hover {
+    background: var(--primary-soft, #EFF6FF);
+    border-color: #BFDBFE;
+}
+
+.option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.option-letter {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #fff;
+    border: 1.5px solid #E2E8F0;
+    color: var(--sidebar, #1E3A8A);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.22s ease;
+}
+
+.option-text {
+    flex: 1;
+    font-size: 15px;
+    color: var(--text, #1E293B);
+    line-height: 1.45;
+}
+
+.option:has(input:checked) {
+    background: var(--primary-soft, #EFF6FF);
+    border-color: var(--primary, #2563EB);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.option:has(input:checked) .option-letter {
+    background: var(--primary, #2563EB);
+    border-color: var(--primary, #2563EB);
+    color: #fff;
+}
+
+.submit-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.submit-btn {
+    background: var(--primary, #2563EB);
+    color: #fff;
+    border: none;
+    padding: 15px 48px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+}
+
+.submit-btn:hover {
+    background: var(--primary-dark, #1D4ED8);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
+}
+
+@media (max-width: 640px) {
+    .exam-container {
+        margin: 20px auto 40px;
+        width: 94%;
+    }
+
+    .exam-header {
+        padding: 24px 20px;
+    }
+
+    .exam-header h1 {
+        font-size: 22px;
+    }
+
+    .question-card {
+        padding: 20px 16px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 15px 24px;
+    }
+}

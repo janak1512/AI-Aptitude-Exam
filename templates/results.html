@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results | AI Exam</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <div class="logo">🧠 AI Exam</div>
+    <ul>
+        <li>
+            <a href="{{ url_for('dashboard') }}">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('practice') }}">
+                <i class="fa-solid fa-book"></i>
+                Practice
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('company_practice') }}">
+                <i class="fa-solid fa-building"></i>
+                Company Prep
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('ai_coach') }}">
+                <i class="fa-solid fa-robot"></i>
+                AI Coach
+            </a>
+        </li>
+        <li class="active">
+            <a href="{{ url_for('results') }}">
+                <i class="fa-solid fa-chart-line"></i>
+                Results
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('profile') }}">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<main class="main-content">
+
+    <div class="header">
+        <div>
+            <h1>My Results</h1>
+            <p>Track your aptitude performance and improvements.</p>
+        </div>
+        <div class="profile-btn">
+            {{ session['fullname'] if session.get('fullname') else 'Student' }}
+        </div>
+    </div>
+
+    <div class="summary-grid">
+        <div class="summary-card">
+            <h2>{{ total_attempts }}</h2>
+            <p>Tests Taken</p>
+        </div>
+        <div class="summary-card">
+            <h2>{{ average_score }}%</h2>
+            <p>Average Score</p>
+        </div>
+        <div class="summary-card">
+            <h2>{{ best_score }}%</h2>
+            <p>Best Score</p>
+        </div>
+    </div>
+
+    <h2 class="title">Exam History</h2>
+
+    <div class="results-container">
+
+        {% if results %}
+
+        {% for item in results %}
+
+        <div class="result-card">
+            <div class="exam-info">
+                <h3>
+                    {% if item.company_name %}
+                        {{ item.company_name }} Placement
+                    {% elif item.category_name %}
+                        {{ item.category_name }}
+                    {% else %}
+                        AI Practice
+                    {% endif %}
+                </h3>
+                <p>📅 {{ item.exam_date.strftime('%d-%m-%Y') if item.exam_date else (item.created_at.strftime('%d-%m-%Y') if item.created_at else 'N/A') }}</p>
+                <p>📝 Score: {{ item.score }}</p>
+            </div>
+
+            <div class="score">
+                <h2>{{ item.percentage }}%</h2>
+                <span>Performance</span>
+            </div>
+
+            <div class="actions">
+                <a href="{{ url_for('result', result_id=item.id) }}" class="view-btn">
+                    View Result
+                </a>
+                <a href="{{ url_for('ai_report', result_id=item.id) }}" class="ai-btn">
+                    🤖 AI Report
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="empty">
+            No exam attempts found. Start a practice test to see your results here.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</main>
+
+</body>
+</html>

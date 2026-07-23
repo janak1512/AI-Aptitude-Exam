@@ -1,0 +1,200 @@
+/* ==========================================
+   Login — Modern Auth
+========================================== */
+
+body {
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(96, 165, 250, 0.35), transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(37, 99, 235, 0.4), transparent 45%),
+        linear-gradient(135deg, #1E3A8A 0%, #2563EB 55%, #1D4ED8 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.container {
+    width: 100%;
+    max-width: 980px;
+    background: #fff;
+    display: flex;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+    animation: fadeUp 0.5s ease;
+}
+
+.left {
+    flex: 1;
+    background: linear-gradient(160deg, #1E3A8A 0%, #2563EB 100%);
+    color: #fff;
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.left::after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    bottom: -60px;
+    right: -40px;
+}
+
+.left h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+}
+
+.left p {
+    line-height: 1.7;
+    font-size: 16px;
+    opacity: 0.92;
+    position: relative;
+    z-index: 1;
+    max-width: 340px;
+}
+
+.right {
+    flex: 1;
+    padding: 52px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right h2 {
+    margin-bottom: 28px;
+    color: var(--sidebar, #1E3A8A);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #E2E8F0;
+    padding: 14px 16px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    background: #F8FAFC;
+    transition: 0.22s ease;
+}
+
+.input-box:focus-within {
+    border-color: var(--primary, #2563EB);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.input-box i {
+    margin-right: 12px;
+    color: var(--primary, #2563EB);
+    width: 18px;
+    text-align: center;
+}
+
+.input-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 15px;
+    background: transparent;
+    color: var(--text, #1E293B);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    font-size: 13px;
+    color: var(--text-muted, #64748B);
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.row a {
+    text-decoration: none;
+    color: var(--primary, #2563EB);
+    font-weight: 500;
+}
+
+.row a:hover {
+    text-decoration: underline;
+}
+
+button[type="submit"],
+.right button {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary, #2563EB);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+}
+
+.right button:hover {
+    background: var(--primary-dark, #1D4ED8);
+    transform: translateY(-1px);
+}
+
+.signup {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 14px;
+    color: var(--text-muted, #64748B);
+}
+
+.signup a {
+    text-decoration: none;
+    color: var(--primary, #2563EB);
+    font-weight: 600;
+}
+
+.signup a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 860px) {
+    .container {
+        flex-direction: column;
+        max-width: 480px;
+    }
+
+    .left {
+        padding: 36px 28px;
+    }
+
+    .left h1 {
+        font-size: 28px;
+    }
+
+    .right {
+        padding: 36px 28px;
+    }
+}

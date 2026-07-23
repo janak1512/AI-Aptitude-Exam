@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Placement Prep | AI Exam</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/practice.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/company_practice.css') }}">
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <div class="logo">🧠 AI Exam</div>
+    <ul>
+        <li>
+            <a href="{{ url_for('dashboard') }}">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('practice') }}">
+                <i class="fa-solid fa-book"></i>
+                Practice
+            </a>
+        </li>
+        <li class="active">
+            <a href="{{ url_for('company_practice') }}">
+                <i class="fa-solid fa-building"></i>
+                Company Prep
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('ai_coach') }}">
+                <i class="fa-solid fa-robot"></i>
+                AI Coach
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('results') }}">
+                <i class="fa-solid fa-chart-line"></i>
+                Results
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('profile') }}">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<main class="main-content">
+
+    <div class="header">
+        <div>
+            <h1>Company Placement Prep</h1>
+            <p>Enter any company name — AI analyzes the placement pattern and generates questions.</p>
+        </div>
+        <div class="profile-btn">
+            {{ fullname if fullname else (session['fullname'] if session.get('fullname') else 'Student') }}
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-wrap">
+        {% for message in messages %}
+        <div class="flash-msg">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <section class="company-hero">
+        <div class="company-hero-copy">
+            <span class="company-badge">AI Company Pattern</span>
+            <h2>Enter Target Company</h2>
+            <p>
+                Type any company — IBM, Casepoint, TCS, Infosys, Google, startups, or others.
+                No fixed company list required.
+            </p>
+        </div>
+
+        <form method="POST" action="{{ url_for('company_practice') }}" class="company-form" id="companyAnalyzeForm">
+            <label for="company_name">Target Company</label>
+            <div class="company-input-row">
+                <input
+                    type="text"
+                    id="company_name"
+                    name="company_name"
+                    list="recentCompanies"
+                    placeholder="e.g. IBM, Casepoint, Accenture..."
+                    value="{{ company_name or '' }}"
+                    maxlength="100"
+                    required
+                    autocomplete="organization"
+                >
+                <button type="submit" class="analyze-btn" id="analyzeBtn">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    Analyze Pattern
+                </button>
+            </div>
+            <datalist id="recentCompanies">
+                {% for c in recent_companies|default([]) %}
+                <option value="{{ c }}"></option>
+                {% endfor %}
+            </datalist>
+            <p class="hint-text">Suggestions show companies you already practiced — you can still type a new name.</p>
+        </form>
+
+        {% if recent_companies %}
+        <div class="recent-chips">
+            <span class="chips-label">Your recent companies:</span>
+            {% for c in recent_companies %}
+            <button type="button" class="chip" data-company="{{ c }}">{{ c }}</button>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+
+    {% if analyzed and pattern_text %}
+    <section class="pattern-panel">
+        <div class="pattern-header">
+            <h2><i class="fa-solid fa-building"></i> {{ company_name }} Placement Pattern</h2>
+            <p>AI analysis used to generate your practice set.</p>
+        </div>
+        <div class="pattern-body">
+            {{ pattern_text | e | replace('\n', '<br>') | safe }}
+        </div>
+
+        <form method="POST" action="{{ url_for('generate_company_test') }}" id="generateCompanyForm">
+            <input type="hidden" name="company_name" value="{{ company_name }}">
+            <input type="hidden" name="pattern_text" value="{{ pattern_text }}">
+            <button type="submit" class="generate-btn" id="generateBtn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Generate 20 AI Questions for {{ company_name }}
+            </button>
+            <p class="hint-text center">
+                Questions adapt to your weak topics and overall score difficulty.
+            </p>
+        </form>
+    </section>
+    {% endif %}
+
+    <section class="info-grid">
+        <div class="info-card">
+            <h3>1. Enter company</h3>
+            <p>Any company name works — product, service, consulting, or startup.</p>
+        </div>
+        <div class="info-card">
+            <h3>2. AI pattern analysis</h3>
+            <p>Aptitude, technical, coding, and fresher hiring focus areas.</p>
+        </div>
+        <div class="info-card">
+            <h3>3. Adaptive questions</h3>
+            <p>More practice on weak topics; difficulty follows your score band.</p>
+        </div>
+    </section>
+
+</main>
+
+<script>
+(function () {
+    const input = document.getElementById("company_name");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const generateBtn = document.getElementById("generateBtn");
+
+    document.querySelectorAll(".chip").forEach(function (chip) {
+        chip.addEventListener("click", function () {
+            input.value = chip.getAttribute("data-company");
+            input.focus();
+        });
+    });
+
+    document.getElementById("companyAnalyzeForm").addEventListener("submit", function () {
+        if (analyzeBtn) {
+            analyzeBtn.disabled = true;
+            analyzeBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analyzing...';
+        }
+    });
+
+    const genForm = document.getElementById("generateCompanyForm");
+    if (genForm) {
+        genForm.addEventListener("submit", function () {
+            if (generateBtn) {
+                generateBtn.disabled = true;
+                generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating questions...';
+            }
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

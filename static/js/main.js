@@ -1,0 +1,1 @@
+console.log("AI Aptitude Exam Loaded Successfully");

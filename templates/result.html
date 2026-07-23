@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}
+Exam Result
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/result.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="result-container">
+
+    <div class="result-card">
+
+        <div class="success-icon">
+            🎉
+        </div>
+
+        <h1>Exam Completed Successfully</h1>
+
+        <p>
+            Congratulations! Your aptitude test has been evaluated.
+        </p>
+
+        <div class="circle-score">
+
+            <div class="circle" style="--pct: {{ result.percentage }}; background: conic-gradient(#2563EB 0deg, #2563EB calc({{ result.percentage }} * 3.6deg), #E5E7EB calc({{ result.percentage }} * 3.6deg), #E5E7EB 360deg);">
+
+                <h2>{{ result.percentage }}%</h2>
+
+                <span>Score</span>
+
+            </div>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-box">
+
+                <h3>{{ result.total_questions }}</h3>
+
+                <p>Total Questions</p>
+
+            </div>
+
+            <div class="stat-box correct">
+
+                <h3>{{ result.correct_answers }}</h3>
+
+                <p>Correct</p>
+
+            </div>
+
+            <div class="stat-box wrong">
+
+                <h3>{{ result.wrong_answers }}</h3>
+
+                <p>Wrong</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3>{{ result.score }}</h3>
+
+                <p>Score</p>
+
+            </div>
+
+        </div>
+                <!-- ================= PERFORMANCE ================= -->
+
+        <div class="performance-section">
+
+            <h2>Performance Summary</h2>
+
+            {% if result.percentage >= 90 %}
+
+                <div class="badge excellent">
+                    🏆 Excellent
+                </div>
+
+            {% elif result.percentage >= 75 %}
+
+                <div class="badge very-good">
+                    🌟 Very Good
+                </div>
+
+            {% elif result.percentage >= 60 %}
+
+                <div class="badge good">
+                    👍 Good
+                </div>
+
+            {% elif result.percentage >= 40 %}
+
+                <div class="badge average">
+                    🙂 Average
+                </div>
+
+            {% else %}
+
+                <div class="badge poor">
+                    📚 Needs Improvement
+                </div>
+
+            {% endif %}
+
+            <div class="progress-bar">
+
+                <div class="progress-fill"
+                     id="resultProgress">
+
+                </div>
+
+            </div>
+
+            <p class="progress-text">
+
+                {{ result.percentage }}% Overall Performance
+
+            </p>
+
+        </div>
+
+        <!-- ================= EXAM DETAILS ================= -->
+
+        <div class="details-card">
+
+            <div class="detail-row">
+
+                <span>📚 Category</span>
+
+                <strong>
+                    {% if result.company_name %}
+                        {{ result.company_name }} Placement
+                    {% else %}
+                        {{ result.category_name or 'AI Practice' }}
+                    {% endif %}
+                </strong>
+
+            </div>
+
+            <div class="detail-row">
+
+                <span>⏱ Time Taken</span>
+
+                <strong>{{ result.time_taken }} Minutes</strong>
+
+            </div>
+
+            <div class="detail-row">
+
+                <span>📅 Exam Date</span>
+
+                <strong>{{ result.exam_date }}</strong>
+
+            </div>
+
+        </div>
+
+        <!-- ================= ACTION BUTTONS ================= -->
+
+        <div class="action-buttons">
+
+            <a href="{{ url_for('review_answers', result_id=result.id) }}"
+               class="btn btn-outline">
+
+                📖 Review Answers
+
+            </a>
+
+            <a href="{{ url_for('ai_report', result_id=result.id) }}"
+               class="btn btn-primary">
+
+                🤖 AI Report
+
+            </a>
+
+            <a href="{{ url_for('dashboard') }}"
+               class="btn btn-success">
+
+                🏠 Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById("resultProgress").style.width =
+"{{ result.percentage }}%";
+
+</script>
+
+{% endblock %}

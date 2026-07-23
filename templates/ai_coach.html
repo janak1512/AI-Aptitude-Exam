@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Coach | AI Exam</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ai_coach.css') }}">
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <div class="logo">🧠 AI Exam</div>
+    <ul>
+        <li>
+            <a href="{{ url_for('dashboard') }}">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('practice') }}">
+                <i class="fa-solid fa-book"></i>
+                Practice
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('company_practice') }}">
+                <i class="fa-solid fa-building"></i>
+                Company Prep
+            </a>
+        </li>
+        <li class="active">
+            <a href="{{ url_for('ai_coach') }}">
+                <i class="fa-solid fa-robot"></i>
+                AI Coach
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('results') }}">
+                <i class="fa-solid fa-chart-line"></i>
+                Results
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('profile') }}">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<main class="main-content">
+
+    <div class="header">
+        <div>
+            <h1>AI Coach</h1>
+            <p>Your personal aptitude improvement assistant.</p>
+        </div>
+        <div class="profile-btn">
+            {{ session['fullname'] if session.get('fullname') else 'Student' }}
+        </div>
+    </div>
+
+    <div class="coach-banner">
+        <div class="ai-icon">🤖</div>
+        <div>
+            <h2>AI Performance Level</h2>
+            <h1>{{ level if level else "Excellent" }}</h1>
+            <p>Your aptitude performance is analyzed based on your exam results.</p>
+            {% if target_company %}
+            <p class="target-company-line">
+                Target company: <strong>{{ target_company }}</strong>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <h2 class="section-title">Your Performance</h2>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h2>{{ tests_taken | default(0) }}</h2>
+            <p>Tests Taken</p>
+        </div>
+        <div class="stat-card">
+            <h2>{{ average_score | default(0) }}%</h2>
+            <p>Average Score</p>
+        </div>
+        <div class="stat-card">
+            <h2>{{ accuracy | default(0) }}%</h2>
+            <p>Accuracy</p>
+        </div>
+    </div>
+
+    <div class="coach-grid">
+        <div class="coach-card">
+            <h2>💪 Strengths</h2>
+            <div class="point success">
+                ✓ {{ strengths | default("Analyzing your performance...") }}
+            </div>
+        </div>
+
+        <div class="coach-card">
+            <h2>⚠ Areas To Improve</h2>
+            <div class="point warning">
+                • {{ weakness | default("No improvement areas detected.") }}
+            </div>
+        </div>
+    </div>
+
+    <div class="coach-card recommendation">
+        <h2>💡 AI Recommendations</h2>
+        <div class="recommend">
+            🔹 {{ suggestion | default("Continue practicing aptitude questions.") }}
+        </div>
+    </div>
+
+    <div class="placement-card">
+        <h2>🏆 Placement Readiness</h2>
+        <h1>{{ level | default("Not Evaluated") }}</h1>
+        <p>Your readiness is calculated from your exam performance.</p>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div class="chat-card">
+        <div class="chat-header">
+            <div class="bot-icon">🤖</div>
+            <div>
+                <h2>AI Coach Assistant</h2>
+                <p>Ask anything about aptitude, placement, programming or preparation.</p>
+            </div>
+            <span class="online-dot" title="Online"></span>
+        </div>
+
+        <div class="chat-box" id="chatBox">
+            <div class="message ai-message">
+                👋 Hello {{ session['fullname'] if session.get('fullname') else 'Student' }}!
+                <br><br>
+                I am your AI Coach.
+                {% if target_company %}
+                Your current target company is <strong>{{ target_company }}</strong>.
+                Ask me how to prepare for it.
+                {% else %}
+                Ask me anything about preparation, aptitude, companies, or placements.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input
+                type="text"
+                id="userMessage"
+                placeholder="{% if target_company %}How should I prepare for {{ target_company }}?{% else %}Message AI Coach...{% endif %}"
+                autocomplete="off"
+                data-target-company="{{ target_company or '' }}"
+            >
+            <button id="sendBtn" type="button" aria-label="Send message">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Send</span>
+            </button>
+        </div>
+    </div>
+
+</main>
+
+<script src="{{ url_for('static', filename='js/ai_chat.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | AI Exam</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <div class="logo">🧠 AI Exam</div>
+    <ul>
+        <li>
+            <a href="{{ url_for('dashboard') }}">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('practice') }}">
+                <i class="fa-solid fa-book"></i>
+                Practice
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('company_practice') }}">
+                <i class="fa-solid fa-building"></i>
+                Company Prep
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('ai_coach') }}">
+                <i class="fa-solid fa-robot"></i>
+                AI Coach
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('results') }}">
+                <i class="fa-solid fa-chart-line"></i>
+                Results
+            </a>
+        </li>
+        <li class="active">
+            <a href="{{ url_for('profile') }}">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<main class="main-content">
+
+    <div class="header">
+        <div>
+            <p class="page-eyebrow">Account Settings</p>
+            <h1>Edit Profile</h1>
+            <p>Update your personal details and review your performance.</p>
+        </div>
+        <div class="profile-btn">
+            <span class="profile-btn-avatar"><i class="fa-solid fa-user"></i></span>
+            {{ session['fullname'] if session.get('fullname') else 'Student' }}
+        </div>
+    </div>
+
+    <div class="profile-layout">
+
+        <!-- Left: Identity + Performance -->
+        <div class="profile-aside">
+
+            <div class="profile-card">
+                <div class="profile-image-wrap">
+                    <div class="profile-image" id="profilePreview">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <label class="profile-image-btn" for="avatarInput" title="Change photo">
+                        <i class="fa-solid fa-camera"></i>
+                    </label>
+                    <input type="file" id="avatarInput" accept="image/*" hidden>
+                </div>
+                <h2>{{ user.fullname if user else "Student Name" }}</h2>
+                <p>{{ user.email if user else "student@email.com" }}</p>
+                <span class="status-badge">
+                    <i class="fa-solid fa-circle"></i>
+                    Active Student
+                </span>
+            </div>
+
+            <div class="performance-card">
+                <div class="card-heading">
+                    <h2>Performance Overview</h2>
+                    <p>Your aptitude progress at a glance</p>
+                </div>
+                <div class="performance-grid">
+                    <div class="perf-item">
+                        <div class="perf-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                        <h1>{{ total_tests }}</h1>
+                        <p>Tests Taken</p>
+                    </div>
+                    <div class="perf-item">
+                        <div class="perf-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                        <h1>{{ average_score }}%</h1>
+                        <p>Average Score</p>
+                    </div>
+                    <div class="perf-item">
+                        <div class="perf-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <h1>{{ best_score }}%</h1>
+                        <p>Best Score</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right: Edit Form -->
+        <div class="details-card">
+            <div class="card-heading">
+                <h2>Personal Information</h2>
+                <p>Keep your profile details accurate and up to date.</p>
+            </div>
+
+            <form 
+                    class="profile-form" 
+                    id="profileForm"
+                    method="POST"
+                    action="{{ url_for('edit_profile') }}"
+                    autocomplete="off">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="fullname">
+                            <i class="fa-solid fa-user"></i>
+                            Full Name
+                        </label>
+                        <input
+                            type="text"
+                            id="fullname"
+                            name="fullname"
+                            value="{{ user.fullname if user else '' }}"
+                            placeholder="Enter your full name"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fa-solid fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ user.email if user else '' }}"
+                            placeholder="Enter your email"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">
+                            <i class="fa-solid fa-phone"></i>
+                            Mobile Number
+                        </label>
+                        <input
+                            type="text"
+                            id="mobile"
+                            name="mobile"
+                            value="{{ user.mobile if user and user.mobile else '' }}"
+                            placeholder="Enter mobile number"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="college">
+                            <i class="fa-solid fa-building-columns"></i>
+                            College
+                        </label>
+                        <input
+                            type="text"
+                            id="college"
+                            name="college"
+                            value="{{ user.college if user and user.college else 'SNPITRC' }}"
+                            placeholder="Enter college name"
+                        >
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label for="status">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Account Status
+                        </label>
+                        <div class="status-field">
+                            <span class="active-status">
+                                <i class="fa-solid fa-check"></i>
+                                Active
+                            </span>
+                            <span class="status-hint">Your account is verified and ready for exams.</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="profile-actions">
+                    <button type="button" class="btn-secondary" id="resetBtn">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Reset
+                    </button>
+                    <button type="submit" class="btn-primary" id="saveBtn">
+                        <span class="btn-text">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Save Changes
+                        </span>
+                        <span class="btn-loader">
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                            Updating...
+                        </span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="toast" id="profileToast" role="status" aria-live="polite">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Profile updated successfully</span>
+    </div>
+
+</main>
+
+<script>
+(function () {
+    const form = document.getElementById('profileForm');
+    const saveBtn = document.getElementById('saveBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const toast = document.getElementById('profileToast');
+    const avatarInput = document.getElementById('avatarInput');
+    const preview = document.getElementById('profilePreview');
+
+    const initial = {
+        fullname: form.fullname.value,
+        email: form.email.value,
+        mobile: form.mobile.value,
+        college: form.college.value
+    };
+
+ form.addEventListener('submit', function () {
+
+    saveBtn.classList.add('is-loading');
+
+    saveBtn.disabled = true;
+
+});
+
+    resetBtn.addEventListener('click', function () {
+        form.fullname.value = initial.fullname;
+        form.email.value = initial.email;
+        form.mobile.value = initial.mobile;
+        form.college.value = initial.college;
+        preview.innerHTML = '<i class="fa-solid fa-user"></i>';
+        preview.classList.remove('has-image');
+        preview.style.backgroundImage = '';
+        avatarInput.value = '';
+    });
+
+    avatarInput.addEventListener('change', function () {
+        const file = this.files && this.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+            preview.innerHTML = '';
+            preview.classList.add('has-image');
+            preview.style.backgroundImage = 'url(' + ev.target.result + ')';
+        };
+        reader.readAsDataURL(file);
+    });
+})();
+</script>
+
+</body>
+</html>

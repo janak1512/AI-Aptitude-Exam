@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Result | AI Exam</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ai_result.css') }}">
+</head>
+
+<body>
+
+<div class="result-card">
+
+    <div class="result-icon">🎯</div>
+
+    <h1>AI Test Completed</h1>
+
+    <p class="subtitle">
+        {% if company_name %}
+            {{ company_name }} placement practice has been evaluated.
+        {% else %}
+            Your Gemini practice test has been evaluated.
+        {% endif %}
+    </p>
+
+    <div class="score-circle" style="--pct: {{ percentage }};">
+        <h2 class="percentage">{{ percentage }}%</h2>
+        <span>Score</span>
+    </div>
+
+    <div class="score-meta">
+        <div class="meta-item">
+            <strong>{{ score }}</strong>
+            <span>Correct</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+            <strong>{{ total }}</strong>
+            <span>Total</span>
+        </div>
+    </div>
+
+    <p class="hint">
+        AI Coach will analyze your performance and guide your next steps.
+    </p>
+
+    <a href="{{ url_for('ai_coach') }}" class="coach-btn">
+        Go To AI Coach
+    </a>
+
+</div>
+
+</body>
+</html>
